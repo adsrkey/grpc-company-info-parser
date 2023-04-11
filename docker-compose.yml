@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+
+  parser-service:
+    container_name: parser-service
+    image: 'golang:1.20.1'
+    build:
+      context: .
+      dockerfile: parser-service.dockerfile
+    restart: always
+    ports:
+      - "8080:8080"
+      - "9090:9090"
+    deploy:
+      mode: replicated
+      replicas: 1

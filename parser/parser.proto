@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package parser;
+option go_package = "parser/parserpb";
+
+import "google/api/annotation.proto";
+
+message Company {
+  string inn = 1;
+  string kpp = 2;
+  string company_name = 3;
+}
+
+message Supervisor {
+  string name = 1;
+}
+
+message ParserRequest {
+  string inn = 1;
+}
+
+message ParserResponse {
+  Company company = 1;
+  Supervisor supervisor = 2;
+}
+
+service ParserService{
+  rpc Get(ParserRequest) returns (ParserResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/company/inn/{inn}/info"
+    };
+  }
+}
