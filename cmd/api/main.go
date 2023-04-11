@@ -53,8 +53,8 @@ func runGatewayServer(srv *server.Server) {
 	r := mux.NewRouter()
 	r.Handle("/api/v1/company/inn/{inn}/info", grpcMux)
 
-	swaggerHandler := http.StripPrefix("/swaggerui/", http.FileServer(http.Dir("./doc/swagger")))
-	r.Handle("/swaggerui/", swaggerHandler)
+	r.PathPrefix("/swaggerui/").
+		Handler(http.StripPrefix("/swaggerui/", http.FileServer(http.Dir("./doc/swagger/"))))
 
 	listener, err := net.Listen("tcp", ":8080")
 	if err != nil {
